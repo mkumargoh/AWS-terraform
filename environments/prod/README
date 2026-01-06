@@ -1,0 +1,1 @@
+Placeholder environment for prod. Copy dev/ and modify backend.tf, terraform.tfvars and other settings to create a prod environment.

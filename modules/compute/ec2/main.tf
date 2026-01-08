@@ -5,6 +5,7 @@ resource "aws_instance" "this" {
   vpc_security_group_ids      = var.security_group_ids
   key_name                    = var.key_name
   associate_public_ip_address = true
+  count                       = var.instance_count
 
   tags = {
     Name = "${var.tags["Name"]}-instance"

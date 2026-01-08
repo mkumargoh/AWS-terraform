@@ -41,14 +41,24 @@ module "ec2_instances" {
   source = "../../modules/compute/ec2"
   ami = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
+  instance_count = 2
   key_name = var.key_name
   security_group_ids = module.security_group.security_group_ids
   subnet_id = module.vpc.public_subnet_ids[0]
   tags = local.common_tags
 }
 
-module "efs" {
-  source = "../../modules/storage/efs"
-  subnet_ids = module.vpc.private_subnet_ids
+# module "efs" {
+#   source = "../../modules/storage/efs"
+#   subnet_ids = module.vpc.private_subnet_ids
+#   tags = local.common_tags
+# }
+
+module "alb" {
+  source = "../../modules/compute/ALB"
+  subnet_ids = module.vpc.public_subnet_ids
   tags = local.common_tags
+  vpc_id = module.vpc.vpc_id
+  instance_ids = module.ec2_instances.instance_ids
+  name = local.common_tags["Name"]
 }

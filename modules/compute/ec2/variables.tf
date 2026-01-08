@@ -30,3 +30,8 @@ variable "tags" {
   type = map(string)
   default = { Name = "example" }
 }
+variable "instance_count" {
+  description = "Number of EC2 instances to launch"
+  type        = number
+  default     = 1
+}
